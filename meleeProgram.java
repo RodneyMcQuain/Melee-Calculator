@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.scene.text.Font;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.event.ActionEvent;
 
 public class meleeProgram extends Application {
 	private Scene mainMenuScene, knockbackCalcScene, frameAdvantageOnBlockScene, frameAdvantageOnHitScene, staleMoveNegationScene,
@@ -174,14 +175,13 @@ public class meleeProgram extends Application {
     	File smashInsigniaF = new File("C:/Users/Rodney/Downloads/smashinsignia.png");
         Image smashInsigniaI = new Image(smashInsigniaF.toURI().toString());
         ImageView smashInsigniaIv = new ImageView(smashInsigniaI); 
-    	Label lblProgramVersion = new Label("Version: 1.03a");
+    	Label lblProgramVersion = new Label("Version: 1.04a");
         smashInsigniaIv.setFitHeight(80);
         smashInsigniaIv.setFitWidth(80);
 		GridPane mainMenuPane = new GridPane();
 		mainMenuPane.setHgap(10);
 		mainMenuPane.setVgap(10);
 		mainMenuPane.setPadding(new Insets(10, 10, 10, 10));
-		GridPane.setHalignment(lblMainMenuB, HPos.CENTER);
 		GridPane.setHalignment(btKnockbackCalc, HPos.CENTER);
 		GridPane.setHalignment(btFrameAdvOnBlock, HPos.CENTER);
 		GridPane.setHalignment(btFrameAdvOnHit, HPos.CENTER);
@@ -190,10 +190,10 @@ public class meleeProgram extends Application {
 		GridPane.setHalignment(btFrameAdvOnAt, HPos.CENTER);
 		GridPane.setHalignment(lblProgramVersion, HPos.RIGHT);
 		GridPane.setHalignment(smashInsigniaIv, HPos.CENTER);
-		
 		lblMainMenuB.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
-		mainMenuPane.add(lblMainMenuB, 0, 0);
 		GridPane.setHalignment(lblMainMenuB, HPos.CENTER);
+
+		mainMenuPane.add(lblMainMenuB, 0, 0);
 		mainMenuPane.add(btKnockbackCalc, 0, 1);
 		mainMenuPane.add(btFrameAdvOnBlock, 0, 2);
 		mainMenuPane.add(btFrameAdvOnHit, 0, 3);
@@ -204,6 +204,7 @@ public class meleeProgram extends Application {
 		mainMenuPane.add(lblProgramVersion, 0, 12);
 		
 		mainMenuScene = new Scene(mainMenuPane, 365, 400);
+		mainMenuScene.getStylesheets().add("stylesheet.css");
     }
     /**
     Setting up the Knockback Calculator scene
@@ -243,6 +244,7 @@ public class meleeProgram extends Application {
 		btMainMenuKnockbackCalc.setOnAction(e -> mainMenuKnockbackCalc(e));
 		
 		knockbackCalcScene = new Scene(knockbackCalcPane, 394, 377);
+		knockbackCalcScene.getStylesheets().add("stylesheet.css");
     }
     /**
     Setting up the Frame Advantage on Block scene
@@ -268,32 +270,32 @@ public class meleeProgram extends Application {
 		frameAdvOnBlockPane.add(tfDamageFrameAdvOnBlock, 1, 5);
 		btFrameAdvOnBlock.setOnAction(e -> frameAdvantageOnBlockSceneM(e));
 		moveTypeGroupFrameAdvOnBlock.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {
-		    		removeFrameAdvOnBlock(frameAdvOnBlockPane);
-					if(rbAerialFrameAdvOnBlock.isSelected()){    
-			    		frameAdvOnBlockPane.add(lblLandingLagAerialFrameAdvOnBlock, 0, 6);       
-			    		frameAdvOnBlockPane.add(tfLandingLagAerialFrameAdvOnBlock, 1, 6);   
-						frameAdvOnBlockPane.add(lblFallFrames1AerialFrameAdvOnBlock, 0, 7);       
-						frameAdvOnBlockPane.add(lblFallFrames2AerialFrameAdvOnBlock, 0, 8);       
-						frameAdvOnBlockPane.add(tfFallFramesAerialFrameAdvOnBlock, 1, 8);
-						tfFallFramesAerialFrameAdvOnBlock.setText(String.valueOf(0));			
-			    	}
-			    	else if(rbGroundFrameAdvOnBlock.isSelected()) {
-			    		frameAdvOnBlockPane.add(lblFirstActiveFrameAdvOnBlock, 0, 6);   
-			    		frameAdvOnBlockPane.add(tfFirstActiveFrameAdvOnBlock, 1, 6);   
-			    		frameAdvOnBlockPane.add(lblTotalFrames1GroundFrameAdvOnBlock, 0, 7);   
-			    		frameAdvOnBlockPane.add(lblTotalFrames2GroundFrameAdvOnBlock, 0, 8);   
-			    		frameAdvOnBlockPane.add(tfTotalFramesFrameAdvOnBlock, 1, 8);   
-			    	}
-			    	else if(rbProjectileFrameAdvOnBlock.isSelected()) {
-			    		frameAdvOnBlockPane.add(lblLandingLag1ProjectileFrameAdvOnBlock, 0, 6);       
-			    		frameAdvOnBlockPane.add(lblLandingLag2ProjectileFrameAdvOnBlock, 0, 7);       
-			    		frameAdvOnBlockPane.add(tfLandingLagProjectileFrameAdvOnBlock, 1, 7);   
-			    	}
-			    	else
-			    		System.out.println("Error");
-				frameAdvOnBlockPane.add(btCalculateFrameAdvOnBlock, 0, 9);
-				frameAdvOnBlockPane.add(new Label("Frame Advantage on Block: "), 0, 10);
-				frameAdvOnBlockPane.add(tfFrameAdvOnBlockResult, 1, 10);
+			removeFrameAdvOnBlock(frameAdvOnBlockPane);
+			if(rbAerialFrameAdvOnBlock.isSelected()){    
+			   	frameAdvOnBlockPane.add(lblLandingLagAerialFrameAdvOnBlock, 0, 6);       
+			   	frameAdvOnBlockPane.add(tfLandingLagAerialFrameAdvOnBlock, 1, 6);   
+				frameAdvOnBlockPane.add(lblFallFrames1AerialFrameAdvOnBlock, 0, 7);       
+				frameAdvOnBlockPane.add(lblFallFrames2AerialFrameAdvOnBlock, 0, 8);       
+				frameAdvOnBlockPane.add(tfFallFramesAerialFrameAdvOnBlock, 1, 8);
+				tfFallFramesAerialFrameAdvOnBlock.setText(String.valueOf(0));			
+		   	}
+			else if(rbGroundFrameAdvOnBlock.isSelected()) {
+		   		frameAdvOnBlockPane.add(lblFirstActiveFrameAdvOnBlock, 0, 6);   
+		   		frameAdvOnBlockPane.add(tfFirstActiveFrameAdvOnBlock, 1, 6);   
+		   		frameAdvOnBlockPane.add(lblTotalFrames1GroundFrameAdvOnBlock, 0, 7);   
+		   		frameAdvOnBlockPane.add(lblTotalFrames2GroundFrameAdvOnBlock, 0, 8);   
+			   	frameAdvOnBlockPane.add(tfTotalFramesFrameAdvOnBlock, 1, 8);   
+		    }
+		   	else if(rbProjectileFrameAdvOnBlock.isSelected()) {
+		   		frameAdvOnBlockPane.add(lblLandingLag1ProjectileFrameAdvOnBlock, 0, 6);       
+	    		frameAdvOnBlockPane.add(lblLandingLag2ProjectileFrameAdvOnBlock, 0, 7);       
+	    		frameAdvOnBlockPane.add(tfLandingLagProjectileFrameAdvOnBlock, 1, 7);   
+		   	}
+		    else
+		   		theStage.setScene(errorScene);
+			frameAdvOnBlockPane.add(btCalculateFrameAdvOnBlock, 0, 9);
+			frameAdvOnBlockPane.add(new Label("Frame Advantage on Block: "), 0, 10);
+			frameAdvOnBlockPane.add(tfFrameAdvOnBlockResult, 1, 10);
 		});
 		frameAdvOnBlockPane.add(new Label(""), 0, 11);
 		frameAdvOnBlockPane.add(btMainMenuFrameAdvOnBlock, 0, 12);
@@ -301,6 +303,7 @@ public class meleeProgram extends Application {
 		btMainMenuFrameAdvOnBlock.setOnAction(e -> mainMenuFrameAdvOnBlock(e));
 		
 		frameAdvantageOnBlockScene = new Scene(frameAdvOnBlockPane, 415, 333);
+		frameAdvantageOnBlockScene.getStylesheets().add("stylesheet.css");
     }
     /**
     Setting up the Frame Advantage on Hit scene
@@ -330,41 +333,42 @@ public class meleeProgram extends Application {
 		btHitstunCalcFrameAdvOnHit.setOnAction(e -> frameAdvantageOnHitToHitstunCalc(e));
 		btFrameAdvOnHit.setOnAction(e -> frameAdvantageOnHitSceneM(e));
 		moveTypeGroupFrameAdvOnHit.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {
-		    		removeFrameAdvOnHit(frameAdvOnHitPane);
-					if(rbAerialFrameAdvOnHit.isSelected()){    
-						frameAdvOnHitPane.add(lblLandingLagAerialFrameAdvOnHit, 0, 9);   
-						frameAdvOnHitPane.add(tfLandingLagAerialFrameAdvOnHit, 1, 9);
-						frameAdvOnHitPane.add(lblFallFrames1AerialFrameAdvOnHit, 0, 10);
-						frameAdvOnHitPane.add(lblFallFrames2AerialFrameAdvOnHit, 0, 11);       
-						frameAdvOnHitPane.add(tfFallFramesAerialFrameAdvOnHit, 1, 11);     
-						tfFallFramesAerialFrameAdvOnHit.setText(String.valueOf(0));			
-					}
-			    	else if(rbGroundFrameAdvOnHit.isSelected()) {
-			    		frameAdvOnHitPane.add(lblFirstActiveFrameAdvOnHit, 0, 9);   
-			    		frameAdvOnHitPane.add(tfFirstActiveFrameAdvOnHit, 1, 9);   
-			    		frameAdvOnHitPane.add(lblTotalFrames1GroundFrameAdvOnHit, 0, 10);   
-			    		frameAdvOnHitPane.add(lblTotalFrames2GroundFrameAdvOnHit, 0, 11);   
-			    		frameAdvOnHitPane.add(tfTotalFramesFrameAdvOnHit, 1, 11);   
-			    	}
-			    	else if(rbProjectileFrameAdvOnHit.isSelected()) {
-			    		frameAdvOnHitPane.add(lblDamageProjectileFrameAdvOnHit, 0, 9);
-			    		frameAdvOnHitPane.add(tfDamageProjectileFrameAdvOnHit, 1, 9);
-			    		frameAdvOnHitPane.add(lblLandingLag1ProjectileFrameAdvOnHit, 0, 10);  
-			    		frameAdvOnHitPane.add(lblLandingLag2ProjectileFrameAdvOnHit, 0, 11);       
-			    		frameAdvOnHitPane.add(tfLandingLagProjectileFrameAdvOnHit, 1, 11);   
-			    	}
-			    	else
-			    		System.out.println("Error");
-					frameAdvOnHitPane.add(btCalculateFrameAdvOnHit, 0, 13);
-					frameAdvOnHitPane.add(new Label("Frame Advantage on Hit: "), 0, 14);
-					frameAdvOnHitPane.add(tfFrameAdvOnHitResult, 1, 14);
-					frameAdvOnHitPane.add(new Label(""), 0, 15);
+			removeFrameAdvOnHit(frameAdvOnHitPane);
+			if(rbAerialFrameAdvOnHit.isSelected()){    
+				frameAdvOnHitPane.add(lblLandingLagAerialFrameAdvOnHit, 0, 9);   
+				frameAdvOnHitPane.add(tfLandingLagAerialFrameAdvOnHit, 1, 9);
+				frameAdvOnHitPane.add(lblFallFrames1AerialFrameAdvOnHit, 0, 10);
+				frameAdvOnHitPane.add(lblFallFrames2AerialFrameAdvOnHit, 0, 11);       
+				frameAdvOnHitPane.add(tfFallFramesAerialFrameAdvOnHit, 1, 11);     
+				tfFallFramesAerialFrameAdvOnHit.setText(String.valueOf(0));			
+			}
+	    	else if(rbGroundFrameAdvOnHit.isSelected()) {
+	    		frameAdvOnHitPane.add(lblFirstActiveFrameAdvOnHit, 0, 9);   
+	    		frameAdvOnHitPane.add(tfFirstActiveFrameAdvOnHit, 1, 9);   
+	    		frameAdvOnHitPane.add(lblTotalFrames1GroundFrameAdvOnHit, 0, 10);   
+	    		frameAdvOnHitPane.add(lblTotalFrames2GroundFrameAdvOnHit, 0, 11);   
+	    		frameAdvOnHitPane.add(tfTotalFramesFrameAdvOnHit, 1, 11);   
+	    	}
+	    	else if(rbProjectileFrameAdvOnHit.isSelected()) {
+	    		frameAdvOnHitPane.add(lblDamageProjectileFrameAdvOnHit, 0, 9);
+	    		frameAdvOnHitPane.add(tfDamageProjectileFrameAdvOnHit, 1, 9);
+	    		frameAdvOnHitPane.add(lblLandingLag1ProjectileFrameAdvOnHit, 0, 10);  
+	    		frameAdvOnHitPane.add(lblLandingLag2ProjectileFrameAdvOnHit, 0, 11);       
+	    		frameAdvOnHitPane.add(tfLandingLagProjectileFrameAdvOnHit, 1, 11);   
+	    	}
+	    	else
+	    		System.out.println("Error");
+			frameAdvOnHitPane.add(btCalculateFrameAdvOnHit, 0, 13);
+			frameAdvOnHitPane.add(new Label("Frame Advantage on Hit: "), 0, 14);
+			frameAdvOnHitPane.add(tfFrameAdvOnHitResult, 1, 14);
+			frameAdvOnHitPane.add(new Label(""), 0, 15);
 		});
 		frameAdvOnHitPane.add(btMainMenuFrameAdvOnHit, 0, 16);
 		btCalculateFrameAdvOnHit.setOnAction(e -> frameAdvantageOnHit(e));
 		btMainMenuFrameAdvOnHit.setOnAction(e -> mainMenuFrameAdvOnHit(e));
 		
 		frameAdvantageOnHitScene = new Scene(frameAdvOnHitPane, 415, 420);
+		frameAdvantageOnHitScene.getStylesheets().add("stylesheet.css");
     }
     /**
     Setting up the Stale Move Negation scene
@@ -405,6 +409,7 @@ public class meleeProgram extends Application {
 		btMainMenuStaleMoveNegation.setOnAction(e -> mainMenuStaleMoveNegation(e));
 		
 		staleMoveNegationScene = new Scene(staleMoveNegationPane, 415, 485);
+		staleMoveNegationScene.getStylesheets().add("stylesheet.css");
     }
     /**
     Setting up the Hitlag Calculator scene
@@ -431,6 +436,7 @@ public class meleeProgram extends Application {
 		btMainMenuHitlagCalc.setOnAction(e -> mainMenuHitlagCalc(e));
 		
 		hitlagCalcScene = new Scene(hitlagCalcPane, 383, 203);
+		hitlagCalcScene.getStylesheets().add("stylesheet.css");
     }
     /**
     Setting up the Frame Advantage on Amsah Tech scene
@@ -486,17 +492,18 @@ public class meleeProgram extends Application {
 	    		frameAdvOnAtPane.add(tfDamageProjectileFrameAdvOnAt, 1, 11);   
 	    	}
 	    	else
-	    		System.out.println("Error");
+	    		theStage.setScene(errorScene);
 			frameAdvOnAtPane.add(btCalculateFrameAdvOnAt, 0, 13);
 			frameAdvOnAtPane.add(new Label("Frame Advantage on At: "), 0, 14);
 			frameAdvOnAtPane.add(tfFrameAdvOnAtResult, 1, 14);
 			frameAdvOnAtPane.add(new Label(""), 0, 15);
-			});
+		});
 		frameAdvOnAtPane.add(btMainMenuFrameAdvOnAt, 0, 16);
 		btCalculateFrameAdvOnAt.setOnAction(e -> frameAdvantageOnAt(e));
 		btMainMenuFrameAdvOnAt.setOnAction(e -> mainMenuFrameAdvOnAt(e));
 		
 		frameAdvantageOnAtScene = new Scene(frameAdvOnAtPane, 415, 400);
+		frameAdvantageOnAtScene.getStylesheets().add("stylesheet.css");
     }
     /**
     Setting up the Error scene
@@ -576,7 +583,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the main menu scene to the knockback calculator scene.
     */
-    public void knockbackCalcSceneM(javafx.event.ActionEvent e)
+    public void knockbackCalcSceneM(ActionEvent e)
     {
         if (e.getSource() == btKnockbackCalc)
             theStage.setScene(knockbackCalcScene);
@@ -586,7 +593,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the main menu scene to the frame advantage on block scene.
     */
-    public void frameAdvantageOnBlockSceneM(javafx.event.ActionEvent e)
+    public void frameAdvantageOnBlockSceneM(ActionEvent e)
     {
         if (e.getSource() == btFrameAdvOnBlock)
             theStage.setScene(frameAdvantageOnBlockScene);
@@ -596,7 +603,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the main menu scene to the frame advantage on hit scene.
     */
-    public void frameAdvantageOnHitSceneM(javafx.event.ActionEvent e)
+    public void frameAdvantageOnHitSceneM(ActionEvent e)
     {
         if (e.getSource() == btFrameAdvOnHit)
             theStage.setScene(frameAdvantageOnHitScene);
@@ -606,7 +613,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the frame advantage on hit scene to the knockback calculator scene.
     */
-    public void frameAdvantageOnHitToHitstunCalc(javafx.event.ActionEvent e)
+    public void frameAdvantageOnHitToHitstunCalc(ActionEvent e)
     {
         if (e.getSource() == btHitstunCalcFrameAdvOnHit)
             theStage.setScene(knockbackCalcScene);
@@ -616,7 +623,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the main menu scene to the stale move negation scene.
     */
-    public void staleMoveNegationM(javafx.event.ActionEvent e)
+    public void staleMoveNegationM(ActionEvent e)
     {
         if (e.getSource() == btStaleMoveCalc)
             theStage.setScene(staleMoveNegationScene);
@@ -626,7 +633,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the main menu scene to the hitlag calculator scene.
     */
-    public void hitlagCalcM(javafx.event.ActionEvent e)
+    public void hitlagCalcM(ActionEvent e)
     {
         if (e.getSource() == btHitlagCalc)
             theStage.setScene(hitlagCalcScene);
@@ -636,7 +643,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the main menu scene to the frame advantage on amsah tech scene.
     */
-    public void frameAdvantageOnAtSceneM(javafx.event.ActionEvent e)
+    public void frameAdvantageOnAtSceneM(ActionEvent e)
     {
         if (e.getSource() == btFrameAdvOnAt)
             theStage.setScene(frameAdvantageOnAtScene);
@@ -648,7 +655,7 @@ public class meleeProgram extends Application {
     /**
      This method takes the user from the knockback calculator scene to the main menu scene.
      */
-    public void mainMenuKnockbackCalc(javafx.event.ActionEvent e)
+    public void mainMenuKnockbackCalc(ActionEvent e)
     {
         if (e.getSource() == btMainMenuKnockbackCalc)
             theStage.setScene(mainMenuScene);
@@ -658,7 +665,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the frame advantage on block scene to the main menu scene.
     */
-    public void mainMenuFrameAdvOnBlock(javafx.event.ActionEvent e)
+    public void mainMenuFrameAdvOnBlock(ActionEvent e)
     {
         if (e.getSource() == btMainMenuFrameAdvOnBlock)
             theStage.setScene(mainMenuScene);
@@ -668,7 +675,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the frame advantage on hit scene to the main menu scene.
     */
-    public void mainMenuFrameAdvOnHit(javafx.event.ActionEvent e)
+    public void mainMenuFrameAdvOnHit(ActionEvent e)
     {
         if (e.getSource() == btMainMenuFrameAdvOnHit)
             theStage.setScene(mainMenuScene);
@@ -678,7 +685,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the stale move negation scene to the main menu scene.
     */
-    public void mainMenuStaleMoveNegation(javafx.event.ActionEvent e)
+    public void mainMenuStaleMoveNegation(ActionEvent e)
     {
         if (e.getSource() == btMainMenuStaleMoveNegation)
             theStage.setScene(mainMenuScene);
@@ -688,7 +695,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the hitlag calculator scene to the main menu scene.
     */
-    public void mainMenuHitlagCalc(javafx.event.ActionEvent e)
+    public void mainMenuHitlagCalc(ActionEvent e)
     {
         if (e.getSource() == btMainMenuHitlagCalc)
             theStage.setScene(mainMenuScene);
@@ -698,7 +705,7 @@ public class meleeProgram extends Application {
     /**
     This method takes the user from the frame advantage on amsah tech scene to the main menu scene.
     */
-    public void mainMenuFrameAdvOnAt(javafx.event.ActionEvent e)
+    public void mainMenuFrameAdvOnAt(ActionEvent e)
     {
         if (e.getSource() == btMainMenuFrameAdvOnAt)
             theStage.setScene(mainMenuScene);
@@ -712,7 +719,7 @@ public class meleeProgram extends Application {
      target weight, move knockback scaling, and move base knockback. This also takes into account
      whether or not the target is crouch cancelling.
      */
-    public void knockbackCalc(javafx.event.ActionEvent e) {
+    public void knockbackCalc(ActionEvent e) {
 		double damage = Double.parseDouble(tfDamageKnockbackCalc.getText()); //damage of a move, how much percent a move does
 		double percent = Double.parseDouble(tfPercent.getText()); //how much total damage or percent has the target taken
 		double weight = Double.parseDouble(tfWeight.getText()); //how heavy a target is
@@ -736,7 +743,7 @@ public class meleeProgram extends Application {
      an aerial, ground, or projectile. After that the shieldstun and move type is used to calculate
      the final frame advantage on block. 
     */
-    public void frameAdvantageOnBlock(javafx.event.ActionEvent e) {
+    public void frameAdvantageOnBlock(ActionEvent e) {
     	double damage = Double.parseDouble(tfDamageFrameAdvOnBlock.getText()); //damage of move, how much percent the move does
     	int shieldstun = shieldstunM((int) damage); //the amount of frames the target is stuck in shield and unactionable
     	int frameAdvOnBlock = 0; //frame advantage on block of move
@@ -771,7 +778,7 @@ public class meleeProgram extends Application {
     aerial, ground, or projectile. After that the hitstun and move type is used to calculate
     the final frame advantage on hit. 
    */
-    public void frameAdvantageOnHit(javafx.event.ActionEvent e) {
+    public void frameAdvantageOnHit(ActionEvent e) {
     	int hitstun = Integer.parseInt(tfHitstunFrameAdvOnHit.getText()); //the amount of frames that the target is unactionable while in knockback
 		int frameAdvOnHit = 0; //frame advantage on hit of move 
 		
@@ -804,7 +811,7 @@ public class meleeProgram extends Application {
      and the final percent the move will do, based on user input about its position(s) in the stale 
      move queue and move damage. 
      */
-    public void staleMoveNegation(javafx.event.ActionEvent e) {
+    public void staleMoveNegation(ActionEvent e) {
     	double damage = Double.parseDouble(tfDamageStaleMoveNegation.getText()); //damage of move, how much percent the move does
     	double[] staleMoveQueue = {0,.09,.08,.07,.06,.05,.04,.03,.02,.01}; //the stale move queue has 9 slots (1-9), a move can be stored in multiple slots in the queue and is assigned its respective value
     	double staleMovePoints = 0; //keeps track of the total amount of stale points based on the stale move queue
@@ -851,7 +858,7 @@ public class meleeProgram extends Application {
      This method calculates hitlag for a move based on user input for damage and whether or not 
      it's an electric move.
      */
-    public void hitlagCalc(javafx.event.ActionEvent e) {
+    public void hitlagCalc(ActionEvent e) {
     	double damage = Double.parseDouble(tfDamageHitlagCalc.getText()); //damage of move, how much percent the move does
 		int hitlag = hitlagM((int) damage); //the amount of frames characters are frozen after a move hits
 		if (chbElectricMove.isSelected())
@@ -863,7 +870,7 @@ public class meleeProgram extends Application {
      This method calculates frame advantage on amsah tech based on user input for move type and whether 
      the target tech rolled or teched in place.  
      */
-    public void frameAdvantageOnAt(javafx.event.ActionEvent e) {
+    public void frameAdvantageOnAt(ActionEvent e) {
     	final int techInPlace = 26; //constant for the amount of frames the animation 'tech in place' takes
     	final int techRoll = 40; //constant for the amount of frames the animation 'tech roll' takes
     	int beforeTech = 0; //the amount of recovery a move has before the tech takes place
