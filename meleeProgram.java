@@ -175,7 +175,7 @@ public class meleeProgram extends Application {
     	File smashInsigniaF = new File("C:/Users/Rodney/Downloads/smashinsignia.png");
         Image smashInsigniaI = new Image(smashInsigniaF.toURI().toString());
         ImageView smashInsigniaIv = new ImageView(smashInsigniaI); 
-    	Label lblProgramVersion = new Label("Version: 1.04a");
+    	Label lblProgramVersion = new Label("Version: 1.04b");
         smashInsigniaIv.setFitHeight(80);
         smashInsigniaIv.setFitWidth(80);
 		GridPane mainMenuPane = new GridPane();
@@ -240,7 +240,7 @@ public class meleeProgram extends Application {
 		knockbackCalcPane.add(new Label(""), 0, 11);
 		knockbackCalcPane.add(btMainMenuKnockbackCalc, 0, 12);
 		btKnockbackCalc.setOnAction(e -> knockbackCalcSceneM(e));
-		btCalculateKnockbackCalc.setOnAction(e -> knockbackCalc(e));
+		btCalculateKnockbackCalc.setOnAction(e -> knockbackCalc());
 		btMainMenuKnockbackCalc.setOnAction(e -> mainMenuKnockbackCalc(e));
 		
 		knockbackCalcScene = new Scene(knockbackCalcPane, 394, 377);
@@ -299,7 +299,7 @@ public class meleeProgram extends Application {
 		});
 		frameAdvOnBlockPane.add(new Label(""), 0, 11);
 		frameAdvOnBlockPane.add(btMainMenuFrameAdvOnBlock, 0, 12);
-		btCalculateFrameAdvOnBlock.setOnAction(e -> frameAdvantageOnBlock(e));
+		btCalculateFrameAdvOnBlock.setOnAction(e -> frameAdvantageOnBlock());
 		btMainMenuFrameAdvOnBlock.setOnAction(e -> mainMenuFrameAdvOnBlock(e));
 		
 		frameAdvantageOnBlockScene = new Scene(frameAdvOnBlockPane, 415, 333);
@@ -364,7 +364,7 @@ public class meleeProgram extends Application {
 			frameAdvOnHitPane.add(new Label(""), 0, 15);
 		});
 		frameAdvOnHitPane.add(btMainMenuFrameAdvOnHit, 0, 16);
-		btCalculateFrameAdvOnHit.setOnAction(e -> frameAdvantageOnHit(e));
+		btCalculateFrameAdvOnHit.setOnAction(e -> frameAdvantageOnHit());
 		btMainMenuFrameAdvOnHit.setOnAction(e -> mainMenuFrameAdvOnHit(e));
 		
 		frameAdvantageOnHitScene = new Scene(frameAdvOnHitPane, 415, 420);
@@ -397,7 +397,7 @@ public class meleeProgram extends Application {
 		staleMoveNegationPane.add(rbStale8, 0, 11);
 		staleMoveNegationPane.add(rbStale9, 0, 12);
 		staleMoveNegationPane.add(btCalcStaleMovePoints, 0, 13);
-		btCalcStaleMovePoints.setOnAction(e -> staleMoveNegation(e));
+		btCalcStaleMovePoints.setOnAction(e -> staleMoveNegation());
 		staleMoveNegationPane.add(new Label("Stale Move Points Total: "), 0, 14);
 		staleMoveNegationPane.add(tfStaleMovePointsTotal, 1, 14);
 		staleMoveNegationPane.add(new Label("The move's damage will be decreased by: "), 0, 15);
@@ -428,7 +428,7 @@ public class meleeProgram extends Application {
 		hitlagCalcPane.add(tfDamageHitlagCalc, 1, 1);
 		hitlagCalcPane.add(chbElectricMove, 1, 2);
 		hitlagCalcPane.add(btCalculateHitlag, 0, 3);
-		btCalculateHitlag.setOnAction(e -> hitlagCalc(e));
+		btCalculateHitlag.setOnAction(e -> hitlagCalc());
 		hitlagCalcPane.add(new Label("Hitlag: "), 0, 4);
 		hitlagCalcPane.add(tfHitlagResultHitlagCalc, 1, 4);
 		hitlagCalcPane.add(new Label(""), 0, 5);
@@ -499,7 +499,7 @@ public class meleeProgram extends Application {
 			frameAdvOnAtPane.add(new Label(""), 0, 15);
 		});
 		frameAdvOnAtPane.add(btMainMenuFrameAdvOnAt, 0, 16);
-		btCalculateFrameAdvOnAt.setOnAction(e -> frameAdvantageOnAt(e));
+		btCalculateFrameAdvOnAt.setOnAction(e -> frameAdvantageOnAt());
 		btMainMenuFrameAdvOnAt.setOnAction(e -> mainMenuFrameAdvOnAt(e));
 		
 		frameAdvantageOnAtScene = new Scene(frameAdvOnAtPane, 415, 400);
@@ -719,7 +719,7 @@ public class meleeProgram extends Application {
      target weight, move knockback scaling, and move base knockback. This also takes into account
      whether or not the target is crouch cancelling.
      */
-    public void knockbackCalc(ActionEvent e) {
+    public void knockbackCalc() {
 		double damage = Double.parseDouble(tfDamageKnockbackCalc.getText()); //damage of a move, how much percent a move does
 		double percent = Double.parseDouble(tfPercent.getText()); //how much total damage or percent has the target taken
 		double weight = Double.parseDouble(tfWeight.getText()); //how heavy a target is
@@ -743,7 +743,7 @@ public class meleeProgram extends Application {
      an aerial, ground, or projectile. After that the shieldstun and move type is used to calculate
      the final frame advantage on block. 
     */
-    public void frameAdvantageOnBlock(ActionEvent e) {
+    public void frameAdvantageOnBlock() {
     	double damage = Double.parseDouble(tfDamageFrameAdvOnBlock.getText()); //damage of move, how much percent the move does
     	int shieldstun = shieldstunM((int) damage); //the amount of frames the target is stuck in shield and unactionable
     	int frameAdvOnBlock = 0; //frame advantage on block of move
@@ -778,7 +778,7 @@ public class meleeProgram extends Application {
     aerial, ground, or projectile. After that the hitstun and move type is used to calculate
     the final frame advantage on hit. 
    */
-    public void frameAdvantageOnHit(ActionEvent e) {
+    public void frameAdvantageOnHit() {
     	int hitstun = Integer.parseInt(tfHitstunFrameAdvOnHit.getText()); //the amount of frames that the target is unactionable while in knockback
 		int frameAdvOnHit = 0; //frame advantage on hit of move 
 		
@@ -811,7 +811,7 @@ public class meleeProgram extends Application {
      and the final percent the move will do, based on user input about its position(s) in the stale 
      move queue and move damage. 
      */
-    public void staleMoveNegation(ActionEvent e) {
+    public void staleMoveNegation() {
     	double damage = Double.parseDouble(tfDamageStaleMoveNegation.getText()); //damage of move, how much percent the move does
     	double[] staleMoveQueue = {0,.09,.08,.07,.06,.05,.04,.03,.02,.01}; //the stale move queue has 9 slots (1-9), a move can be stored in multiple slots in the queue and is assigned its respective value
     	double staleMovePoints = 0; //keeps track of the total amount of stale points based on the stale move queue
@@ -858,7 +858,7 @@ public class meleeProgram extends Application {
      This method calculates hitlag for a move based on user input for damage and whether or not 
      it's an electric move.
      */
-    public void hitlagCalc(ActionEvent e) {
+    public void hitlagCalc() {
     	double damage = Double.parseDouble(tfDamageHitlagCalc.getText()); //damage of move, how much percent the move does
 		int hitlag = hitlagM((int) damage); //the amount of frames characters are frozen after a move hits
 		if (chbElectricMove.isSelected())
@@ -870,7 +870,7 @@ public class meleeProgram extends Application {
      This method calculates frame advantage on amsah tech based on user input for move type and whether 
      the target tech rolled or teched in place.  
      */
-    public void frameAdvantageOnAt(ActionEvent e) {
+    public void frameAdvantageOnAt() {
     	final int techInPlace = 26; //constant for the amount of frames the animation 'tech in place' takes
     	final int techRoll = 40; //constant for the amount of frames the animation 'tech roll' takes
     	int beforeTech = 0; //the amount of recovery a move has before the tech takes place
