@@ -725,15 +725,18 @@ public class meleeProgram extends Application {
 		double weight = Double.parseDouble(tfWeight.getText()); //how heavy a target is
 		double knockbackScaling = Double.parseDouble(tfKnockbackScaling.getText()); //how the knockback scales with percent for a move
 		double baseKnockback = Double.parseDouble(tfBaseKnockback.getText()); //where the knockback starts for a move
-		double knockback = 0; //knockback of move
+		double knockback = 0; //knockback of move]
+		final int LANDING_LAG = 4; //normal landing lag frames
+		int hitstun = 0;
 		
 		if (chbDidTheyCc.isSelected()) {
 			knockback = cc(damage, percent, weight, knockbackScaling, baseKnockback);
+			hitstun = (int) hitstunM(knockback);
 		}
 		else {
 			knockback = asdid(damage, percent, weight, knockbackScaling, baseKnockback);
+			hitstun = (int) hitstunM(knockback) + LANDING_LAG;
 		}	
-		int hitstun = (int) hitstunM(knockback);
 		tfHitstunResult.setText(String.valueOf(hitstun));
 		tfKnockbackResult.setText(String.valueOf(f.format(knockback)));
     }
