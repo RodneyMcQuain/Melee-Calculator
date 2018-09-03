@@ -577,7 +577,7 @@ public class app extends Application {
 		lblResult.setFont(RESULT_FONT);
 		Button btMainMenu = new Button("Main Menu");
 
-		frameAdvOnAmsahTechPane.add(lblFrameAdvOnAmsahTech, 0, 0);
+		frameAdvOnAmsahTechPane.add(lblFrameAdvOnAmsahTechHeader, 0, 0);
 		frameAdvOnAmsahTechPane.add(new Label("What type of move was used? Aerial, Ground,"), 0, 1);
 		frameAdvOnAmsahTechPane.add(new Label("or Projectile?"), 0, 2);
 		rbAerial.setToggleGroup(moveTypeGroup);
